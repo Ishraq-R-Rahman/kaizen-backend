@@ -50,12 +50,25 @@ const LoanRequestSchema = new mongoose.Schema({
         enum: ['Loan' , 'Donation'],
         default: 'Loan'
     }
+    ,
+    // this will not be filled in case of donation
+    contracts : [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'contract',
+        validate: {
+            // Makes sure one loan request doesn't have more than 5 lenders
+            validator : function(){
+                return !(this.contracts.length > 5);
+            }
+        }
+    }]
 });
 
-LoanRequestSchema.post('save' , async function( ) {
+LoanRequestSchema.pre('save' , async function( next ) {
     if( this.collectedAmount >= this.Amount ){
         this.Status = 'Resolved';
     }
+    next();
 })
 
 // LoanRequestSchema.index({

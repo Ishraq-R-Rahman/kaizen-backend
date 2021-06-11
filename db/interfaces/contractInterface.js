@@ -14,7 +14,7 @@ const endContract = async (body)=>{
         } , {
             status: 'Ended'
         });
-    
+                
         if( finishedContract ){
             return {
                 data: finishedContract, 

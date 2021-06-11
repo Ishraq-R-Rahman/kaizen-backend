@@ -45,15 +45,26 @@ const contractSchema = new mongoose.Schema({
 })
 
 
-contractSchema.post('update' , async function(){
-    const modifiedFields = this.getUpdate().$set;
-    console.log(modifiedFields);
+contractSchema.pre('save', async function( next ){
+    // Adding the installment dates before saving the doc
+    for( let i = 0; i < this.installments ; i++ ){
+        this.installmentDates.push( Date.now() + (i+1) * 60 * 60 * 24 * 30 * 1000 );
+    }
+
+
+    next();
+
+
 })
 
-contractSchema.pre('save', async function(next){
-    for( let i = 0; i < this.installments ; i++ ){
-        // console.log("Here");
-    }
+contractSchema.post('save' , async function(){
+    // Adding the contract to the loan request model
+    await this.model('LoanRequest').updateOne({ 
+            _id: this.loanId
+        },{
+            $push: { contracts : {$each : [this._id] } }
+        }
+    )
 })
 
 const Contract = mongoose.model("contract", contractSchema );

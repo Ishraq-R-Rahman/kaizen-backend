@@ -15,10 +15,18 @@ const handlePUTEndContract = async ( req,res,next )=>{
         });
 
         if( contractQueryResult.status == 'OK' ){
-            return res.status(204).send( contractQueryResult );
+            return res.status(200).send( {
+                status: 'OK',
+                data: contractQueryResult.data,
+                message: contractQueryResult.message
+            } );
         }
 
-        return res.status(400).send( contractQueryResult );
+        return res.status(400).send({
+            status: 'ERROR',
+            data: contractQueryResult.data,
+            message: contractQueryResult.message
+        })
     }catch(e){
         return res.status(500).send({
             status: 'EXCEPTION',
