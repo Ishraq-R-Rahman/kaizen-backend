@@ -36,7 +36,8 @@ const LoanRequestSchema = new mongoose.Schema({
     collectedAmount: {
         type: Number,
         default: 0,
-        max: [this.Amount, "Collected Amount can not be more than the required amount"]
+        max: [this.Amount, "Collected Amount can not be more than the required amount"],
+        immutable: doc => doc.Status !== 'Resolved' // basically if the loan request is resolved no loan/ donation taken after that
     },
 
     issueDate: {
@@ -57,14 +58,14 @@ LoanRequestSchema.post('save' , async function( ) {
     }
 })
 
-LoanRequestSchema.index({
-    // this will index that database based on the issue date in ascending order
-    issueDate: 1
-} , {
-    // will expire after 3 months
-    expireAfterSeconds: (60*60*24*30*3)
-    // expireAfterSeconds: (60)
-})
+// LoanRequestSchema.index({
+//     // this will index that database based on the issue date in ascending order
+//     issueDate: 1
+// } , {
+//     // will expire after 3 months
+//     expireAfterSeconds: (60*60*24*30*3)
+//     // expireAfterSeconds: (60)
+// })
 
 const LoanRequest = mongoose.model("LoanRequest", LoanRequestSchema);
 

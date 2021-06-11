@@ -6,5 +6,5 @@
 
 ## **<ins>Routes :</ins>**<br><br>
 
-* *SIGN-UP* : &nbsp; /api/auth/signup
-* *SIGN-IN* : &nbsp; /api/auth/login
+* *SIGN-UP* : &nbsp; /api/auth/signup - ( email , password )
+* *SIGN-IN* : &nbsp; /api/auth/login - ()

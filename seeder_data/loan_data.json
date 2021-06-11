@@ -3,13 +3,15 @@
     "_id": "60a2288f788f921b543cd8ca",
     "Receiver": "6076cfa408541e2ba057e331",
     "Amount": "1000",
-    "Details": "Hello I need Loan!!"
+    "Details": "Hello I need Loan!!",
+    "typeOfLoan": "Loan"
   },
   {
     "_id": "60a2288f788f921b543cd8cb",
     "Receiver": "6076cfa408541e2ba057e332",
     "Amount": "1200",
-    "Details": "Hello World!"
+    "Details": "Hello World!",
+    "typeOfLoan": "Donation"
   },
   {
     "_id": "60a2288f788f921b543cd8cc",
