@@ -8,11 +8,11 @@ const Contracts = require('../models/contractModel');
  */
 const endContract = async (body)=>{
     try {
-        const finishedContract = await Contracts.findOneAndUpdate( {
+        const finishedContract = await Contracts.updateOne( {
             _id: body.contractId,
             lenderId: body.issuerId
         } , {
-            status: 'Ended'
+            status: 'Resolved'
         });
                 
         if( finishedContract ){

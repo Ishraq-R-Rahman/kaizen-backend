@@ -29,7 +29,7 @@ const contractSchema = new mongoose.Schema({
 
     status: {
         type: String,
-        enum: ['Pending' , 'Ended'],
+        enum: ['Pending' , 'Resolved'],
         default: 'Pending'
     },
 
@@ -66,6 +66,7 @@ contractSchema.post('save' , async function(){
         }
     )
 })
+
 
 const Contract = mongoose.model("contract", contractSchema );
 

@@ -26,10 +26,10 @@ const LoanRequestSchema = new mongoose.Schema({
         }
     },
 
-    // Pending = In process ; Resolved = the money has been collected
+    // Pending = In process ; Completed = the money has been collected
     Status: {
         type: String,
-        enum: ['Resolved' , 'Pending'],
+        enum: ['Completed' , 'Pending'],
         default: 'Pending'
     },
 
@@ -37,7 +37,7 @@ const LoanRequestSchema = new mongoose.Schema({
         type: Number,
         default: 0,
         max: [this.Amount, "Collected Amount can not be more than the required amount"],
-        immutable: doc => doc.Status !== 'Resolved' // basically if the loan request is resolved no loan/ donation taken after that
+        immutable: doc => doc.Status !== 'Completed' // basically if the loan request is Completed no loan/ donation taken after that
     },
 
     issueDate: {
@@ -66,7 +66,7 @@ const LoanRequestSchema = new mongoose.Schema({
 
 LoanRequestSchema.pre('save' , async function( next ) {
     if( this.collectedAmount >= this.Amount ){
-        this.Status = 'Resolved';
+        this.Status = 'Completed';
     }
     next();
 })
