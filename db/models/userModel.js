@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 const validate = require('../validate');
+const bcrypt = require("bcryptjs");
+
 
 const userSchema = new mongoose.Schema({
    
@@ -68,7 +70,7 @@ const userSchema = new mongoose.Schema({
 /// Validate NID
 function checkNID( NID ) {
     if( NID > 0 ){
-        console.log(this.username + " : " + this.dob );
+        // console.log(this.username + " : " + this.dob );
         return true;
     }
 
@@ -76,6 +78,13 @@ function checkNID( NID ) {
         return false;
     }
 }
+
+
+userSchema.pre('save' , async function(next){
+    this.password = await bcrypt.hash( this.password, 10);
+    this.NID = await bcrypt.hash( this.nid , 10);
+    next();
+})
 
 const User = mongoose.model("user", userSchema);
 

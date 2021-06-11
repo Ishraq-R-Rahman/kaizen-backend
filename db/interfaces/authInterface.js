@@ -1,5 +1,4 @@
 const Users = require('../models/userModel');
-const bcrypt = require("bcryptjs");
 
 /**
  * @description registers new users
