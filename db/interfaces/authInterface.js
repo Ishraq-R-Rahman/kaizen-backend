@@ -1,4 +1,5 @@
 const Users = require('../models/userModel');
+const bcrypt = require("bcryptjs");
 
 /**
  * @description registers new users
@@ -16,9 +17,6 @@ const registerUser = async( body )=> {
                 message: 'User already exists in the database'
             }
         }
-
-        // const hashedPassword = await bcrypt.hash( body.password, 10);
-        // console.log(body);
 
         const newUser = new Users({
             username : body.username,
