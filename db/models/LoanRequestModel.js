@@ -42,6 +42,12 @@ const LoanRequestSchema = new mongoose.Schema({
     issueDate: {
         type: Date,
         default: Date.now
+    },
+
+    typeOfLoan: {
+        type: String,
+        enum: ['Loan' , 'Donation'],
+        default: 'Loan'
     }
 });
 
